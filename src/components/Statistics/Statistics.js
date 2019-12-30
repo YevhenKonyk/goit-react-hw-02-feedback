@@ -14,23 +14,18 @@ const Statistics = ({ good, neutral, bad, total, positivePercentage }) => (
             </li>
             <li className="listItem">
               <Statistic label="Neutral:" value={neutral} />
-              <p className="text">Neutral: {neutral}</p>
             </li>
             <li className="listItem">
               <Statistic label="Bad:" value={bad} />
-              <p className="text">Bad: {bad}</p>
             </li>
             <li className="listItem">
               <Statistic label="Total:" value={total} />
-              <p className="text">Total: {total}</p>
             </li>
             <li className="listItem">
-              <p className="text">
-                <Statistic
-                  label="Positive feedback:"
-                  value={`${positivePercentage || 0}%`}
-                />
-              </p>
+              <Statistic
+                label="Positive feedback:"
+                value={`${positivePercentage || 0}%`}
+              />
             </li>
           </ul>
         </Section>
