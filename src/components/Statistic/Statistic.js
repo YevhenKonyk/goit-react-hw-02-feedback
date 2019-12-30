@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 const Statistic = ({ label, value }) => (
   <>
     <p className="text">
-      `${label} ${value}`
+      {label} {value}
     </p>
   </>
 );
