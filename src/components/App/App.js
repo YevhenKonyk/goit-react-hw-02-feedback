@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import Section from '../Section/Section';
+import FeedbackOptions from '../FeedbackOptions/FeedbackOptions';
+import Statistics from '../Statistics/Statistics';
 
 export default class App extends Component {
   state = {
@@ -7,21 +10,11 @@ export default class App extends Component {
     bad: 0,
   };
 
-  handleGoodBtnClick = () => {
-    this.setState(prevState => ({
-      good: prevState.good + 1,
-    }));
-  };
+  handleLeaveFeedback = e => {
+    const { name } = e.target;
 
-  handleNeutralBtnClick = () => {
     this.setState(prevState => ({
-      neutral: prevState.neutral + 1,
-    }));
-  };
-
-  handleBadBtnClick = () => {
-    this.setState(prevState => ({
-      bad: prevState.bad + 1,
+      [name]: prevState[name] + 1,
     }));
   };
 
@@ -38,49 +31,21 @@ export default class App extends Component {
     ).toFixed();
 
     return (
-      <section className="feedback">
-        <h1 className="title">Please Leave feedback</h1>
-
-        <button className="btn" type="button" onClick={this.handleGoodBtnClick}>
-          Good
-        </button>
-        <button
-          className="btn"
-          type="button"
-          onClick={this.handleNeutralBtnClick}
-        >
-          Neutral
-        </button>
-        <button className="btn" type="button" onClick={this.handleBadBtnClick}>
-          Bad
-        </button>
-
-        {totalFeedbackCount > 0 && (
-          <>
-            <h2 className="title">Statistics</h2>
-            <ul className="list">
-              <li className="listItem">
-                <p className="text">Good: {good}</p>
-              </li>
-              <li className="listItem">
-                <p className="text">Neutral: {neutral}</p>
-              </li>
-              <li className="listItem">
-                <p className="text">Bad: {bad}</p>
-              </li>
-              <li className="listItem">
-                <p className="text">Total: {totalFeedbackCount || 0}</p>
-              </li>
-              <li className="listItem">
-                <p className="text">
-                  Positive feedback: {positiveFeedbackPercentage || 0}%
-                </p>
-              </li>
-            </ul>
-          </>
-        )}
-        {totalFeedbackCount <= 0 && <p>No feedback given</p>}
-      </section>
+      <>
+        <Section title="Please Leave feedback">
+          <FeedbackOptions
+            options={Object.keys({ ...this.state })}
+            onLeaveFeedback={this.handleLeaveFeedback}
+          />
+          <Statistics
+            good={good}
+            neutral={neutral}
+            bad={bad}
+            total={totalFeedbackCount}
+            positivePercentage={positiveFeedbackPercentage}
+          />
+        </Section>
+      </>
     );
   }
 }
