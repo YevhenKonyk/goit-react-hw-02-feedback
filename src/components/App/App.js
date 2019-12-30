@@ -28,32 +28,58 @@ export default class App extends Component {
   render() {
     const { good, neutral, bad } = this.state;
 
-    return (
-      <section className="">
-        <h1 className="">Please Leave feedback</h1>
+    const totalFeedbackCount = Object.values({ ...this.state }).reduce(
+      (acc, value) => acc + value,
+      0,
+    );
 
-        <button className="" type="button" onClick={this.handleGoodBtnClick}>
+    const positiveFeedbackPercentage = parseFloat(
+      (good / totalFeedbackCount) * 100,
+    ).toFixed();
+
+    return (
+      <section className="feedback">
+        <h1 className="title">Please Leave feedback</h1>
+
+        <button className="btn" type="button" onClick={this.handleGoodBtnClick}>
           Good
         </button>
-        <button className="" type="button" onClick={this.handleNeutralBtnClick}>
+        <button
+          className="btn"
+          type="button"
+          onClick={this.handleNeutralBtnClick}
+        >
           Neutral
         </button>
-        <button className="" type="button" onClick={this.handleBadBtnClick}>
+        <button className="btn" type="button" onClick={this.handleBadBtnClick}>
           Bad
         </button>
 
-        <h2 className="">Statistics</h2>
-        <ul className="">
-          <li className="">
-            <p>Good: {good}</p>
-          </li>
-          <li className="">
-            <p>Neutral: {neutral}</p>
-          </li>
-          <li className="">
-            <p>Bad: {bad}</p>
-          </li>
-        </ul>
+        {totalFeedbackCount > 0 && (
+          <>
+            <h2 className="title">Statistics</h2>
+            <ul className="list">
+              <li className="listItem">
+                <p className="text">Good: {good}</p>
+              </li>
+              <li className="listItem">
+                <p className="text">Neutral: {neutral}</p>
+              </li>
+              <li className="listItem">
+                <p className="text">Bad: {bad}</p>
+              </li>
+              <li className="listItem">
+                <p className="text">Total: {totalFeedbackCount || 0}</p>
+              </li>
+              <li className="listItem">
+                <p className="text">
+                  Positive feedback: {positiveFeedbackPercentage || 0}%
+                </p>
+              </li>
+            </ul>
+          </>
+        )}
+        {totalFeedbackCount <= 0 && <p>No feedback given</p>}
       </section>
     );
   }
