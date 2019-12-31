@@ -26,9 +26,10 @@ export default class App extends Component {
       0,
     );
 
-    const positiveFeedbackPercentage = parseFloat(
-      (good / totalFeedbackCount) * 100,
-    ).toFixed();
+    const positiveFeedbackPercentage =
+      good > 0
+        ? Number(parseFloat((good / totalFeedbackCount) * 100).toFixed())
+        : 0;
 
     return (
       <>
