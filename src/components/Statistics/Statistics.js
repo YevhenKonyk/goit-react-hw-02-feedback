@@ -24,7 +24,7 @@ const Statistics = ({ good, neutral, bad, total, positivePercentage }) => (
             <li className="listItem">
               <Statistic
                 label="Positive feedback:"
-                value={`${positivePercentage || 0}%`}
+                value={`${positivePercentage}%`}
               />
             </li>
           </ul>
